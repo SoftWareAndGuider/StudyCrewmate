@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Crewmate - 회원가입</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/1.0.0/mdb.min.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/2956b5e976.js" crossorigin="anonymous"></script>
+  </head>
+  <body class="bg-dark" style="background-image: url('/src/index/back.jpg'); background-repeat: no-repeat; background-size: 200vh;">
+    <div class="modal fade" id="loginform" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="card text-center">
+            <h5 class="card-header bg-info text-white text-center py-4">
+              <strong>회원가입</strong>
+            </h5>
+            <div class="card-body px-lg-5 pt-0">
+              <form action="/api/regist" method="POST">
+                <div class="form-outline mt-3 mb-3">
+                  <input type="text" id="id" name="id" class="form-control" />
+                  <label class="form-label" for="id">사용할 아이디</label>
+                </div>
+
+                <div class="form-outline mb-3">
+                  <input type="text" id="username" name="username" class="form-control" />
+                  <label class="form-label" for="username">사용할 닉네임</label>
+                </div>
+  
+                <div class="form-outline mb-3">
+                  <input type="password" id="pwd" name="passwd" class="form-control" />
+                  <label class="form-label" for="pwd">사용할 비밀번호 (5자 이상)</label>
+                </div>
+
+                
+                <div class="form-outline mb-3">
+                  <input type="password" id="pwdcheck" name="passwdcheck" class="form-control" />
+                  <label class="form-label" for="pwdcheck">비밀번호 확인</label>
+                </div>
+
+<!--                 
+                <div id="select-grade">
+                    <label for="school-level">학교와 학년을 선택해 주세요.</label><br>
+                  <select id="school-level" name="school-level" class="selectpicker">
+                      <option value="elem">초등학교</option>
+                      <option value="mid">중학교</option>
+                      <option value="high">고등학교</option>
+                      <option value="etc">기타</option>
+                  </select>
+
+                  <select id="grade" name="grade" class="selectpicker">
+                    <option value=1>1학년</option>
+                    <option value=2>2학년</option>
+                    <option value=3>3학년</option>
+                    <option value=4>4학년</option>
+                    <option value=5>5학년</option>
+                    <option value=6>6학년</option>
+                   </select> 
+                </div>  -->
+                
+                <div class="border rounded p-3 mb-3">
+                  <label for="score" class="form-label">자신이 자기주도학습을 얼마나 잘한다고 생각하시나요?</label>
+
+                  <label class="form-label">잘 못한다</label>
+                  <input type="range" class="form-range" name="score" min="1" value="3" max="5" id="self-study-level" />
+                  <label class="form-label">잘한다</label>
+                </div>
+
+                <button class="btn btn-outline-info btn-rounded btn-block" type="submit">회원가입</button>
+
+                <p>이미 계정이 있으신가요?
+                  <a href="/login">로그인</a>
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/1.0.0/mdb.min.js"></script>
+    <script>
+      const modal = new mdb.Modal(document.getElementById('loginform'), { keyboard: false, backdrop: 'static' })
+      modal.show()
+    </script>
+  </body>
+  <style>
+      #self-study-level {
+          width: 60%;
+          padding: 10px;
+      }
+      #select-grade {
+          margin: 10px;
+      }
+  </style>
+</html>
+</html>

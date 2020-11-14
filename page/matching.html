@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/1.0.0/mdb.min.css" rel="stylesheet" />
+    <title>Study Crewmate - Mate Matching</title>
+  </head>
+  <body class="bg-dark">
+    <div class="center text-center">
+      <div class="card shadow">
+        <div class="card-body p-5">
+          <img src="https://media2.giphy.com/media/3oKIPAaA76uBrFhnYQ/source.gif" style="height: 15vh;"/>
+          <h4><br><strong>스터디 메이트(1:1) 매칭중...</strong></h4>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      .center {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+    </style>
+
+    <script src="/socket.io/socket.io.min.js"></script>
+    <script>
+      const socket = io()
+      setInterval(() => socket.emit('match', getCookie('session')), 1000)
+      socket.on('match', function (data) {
+        if (data.available < 2) window.location.href = '/room/' + data.roomid
+      })
+
+      function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "";
+      }
+    </script>
+  </body>
+</html>

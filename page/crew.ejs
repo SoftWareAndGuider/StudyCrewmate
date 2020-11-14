@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Crewmate - 크루</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/1.0.0/mdb.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
+  </head>
+  <body class="bg-dark">
+    <div class="container"><br>
+      <div class="row bg-white">
+        <strong class="p-5 text-center">
+          <% if (!user.crewid) { %>
+            <div class="alert alert-primary" role="alert">
+              <strong class="text-center">
+                가입된 크루가 없습니다 - 아래에 목록에서 선택해 크루에 가입하세요
+              </strong>
+            </div>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">번호</th>
+                  <th scope="col">이름</th>
+                  <th scope="col">설명</th>
+                  <th scope="col">크루 생성일</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% crews.forEach((item, index) => { %>
+                    <tr>
+                      <th scope="row"><%= index + 1 %></th>
+                      <td><a href="/api/crew?type=join&crewname=<%= item.crewid %>"><%= item.name %></a></td>
+                      <td><%= item.description %></td>
+                      <% const date = new Date(item.createdAt) %>
+                      <td><%= date.getFullYear() + '년 ' + (date.getMonth() + 1) + '월 ' + date.getDate() + '일' %></td>
+                    </tr>
+                <% }) %>
+              </tbody>
+            </table>
+
+            <div class="w-100 text-right">
+              <button
+              type="button"
+              class="btn btn-danger"
+              data-toggle="modal"
+              data-target="#form">크루 만들기</button>
+            </div>
+            <div class="modal fade" id="form" tabindex="-1">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="card text-center">
+                    <h5 class="card-header bg-danger text-white text-center py-4">
+                      <strong>크루 만들기</strong>
+                    </h5>
+                    <div class="card-body px-lg-5 pt-0"><br/>
+                      <form action="/api/crew?type=create" method="POST">
+                        <div class="form-outline">
+                          <input type="text" id="name" name="name" class="form-control" />
+                          <label class="form-label" for="name">크루 이름</label>
+                        </div><br/>
+                        <div class="form-outline mb-4">
+                          <textarea class="form-control" name="description" id="description" rows="4"></textarea>
+                          <label class="form-label" for="description">크루 설명</label>
+                        </div>
+        
+                        <button class="btn btn-outline-danger btn-rounded btn-block" type="submit">크루 만들기</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% } else { %>
+            <div class="alert alert-info" role="alert">
+              <strong class="text-center">
+                내 크루: <%= crews.find((crew) => crew.crewid === user.crewid).name %>
+              </strong>
+            </div>
+
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">번호</th>
+                  <th scope="col">이름</th>
+                  <th scope="col">포인트</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% users.forEach((item, index) => { %>
+                    <tr>
+                      <th scope="row"><%= index + 1 %></th>
+                      <td><%= item.username %></td>
+                      <td><%= item.point %></td>
+                    </tr>
+                <% }) %>
+              </tbody>
+            </table>
+
+            <div class="w-100 text-right">
+              <a href="/api/crew?type=leave&crewname=<%= user.crewid %>" class="btn btn-secondary ml-3">
+                크루 나가기
+              </a>
+              <a href="/api/crew?type=remove&crewname=<%= user.crewid %>" class="btn btn-danger">
+                크루 지우기
+              </a>
+            </div>
+          <% } %>
+        </strong>
+      </div><br/>
+      <div class="row mb-4">
+        <div class="col-md">
+          <a class="btn btn-danger btn-lg btn-block" href="/" role="button"><i class="fa fa-home" aria-hidden="true"></i> 홈</a>
+        </div>
+        <div class="col-md">
+          <a class="btn btn-danger btn-lg btn-block" href="/list" role="button"><i class="fa fa-chart-pie" aria-hidden="true"></i> 순위</a>
+        </div>
+        <div class="col-md">
+          <a class="btn btn-danger btn-lg btn-block" href="/todo" role="button"><i class="fa fa-calculator"-calc aria-hidden="true"></i> 목표 관리, 조회</a>
+        </div>
+        <div class="col-md">
+          <a class="btn btn-danger btn-lg btn-block" href="/crew" role="button"><i class="fa fa-users"-calc aria-hidden="true"></i> 크루</a>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/1.0.0/mdb.min.js"></script>
+
+  </body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Crewmate - 로그인</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/1.0.0/mdb.min.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/2956b5e976.js" crossorigin="anonymous"></script>
+  </head>
+  <body class="bg-dark" style="background-image: url('/src/index/back.jpg'); background-repeat: no-repeat; background-size: 200vh;">
+    <div class="modal fade" id="loginform" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="card text-center">
+            <h5 class="card-header bg-info text-white text-center py-4">
+              <strong>로그인</strong>
+            </h5>
+            <div class="card-body px-lg-5 pt-0"><br/>
+              <form action="/api/login?type=legacy" method="POST">
+                <div class="form-outline">
+                  <input type="text" id="id" name="id" class="form-control" />
+                  <label class="form-label" for="id">아이디</label>
+                </div><br/>
+                <div class="form-outline">
+                  <input type="password" id="passwd" name="passwd" class="form-control" />
+                  <label class="form-label" for="passwd">비밀번호</label>
+                </div><br/>
+
+                <button class="btn btn-outline-info btn-rounded btn-block" type="submit">로그인</button>
+    
+                <br/><p>계정이 없으신가요?
+                  <a href="/regist">회원가입</a>
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      .btn-branding {
+        background-color: #86FF30;
+      }
+    </style>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/1.0.0/mdb.min.js"></script>
+    <script>
+      const modal = new mdb.Modal(document.getElementById('loginform'), { keyboard: false, backdrop: 'static' })
+      modal.show()
+    </script>
+  </body>
+</html>

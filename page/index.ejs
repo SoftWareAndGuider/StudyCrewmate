@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Crewmate - 대시보드</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/1.0.0/mdb.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
+  </head>
+  <body class="bg-dark">
+    <div class="container">
+      <br>
+      <div class="row mb-4 text-center" style="min-height: 300px;">
+        <!-- Carousel wrapper -->
+        <div id="carouselBasicExample" class="carousel slide carousel-fade" data-ride="carousel">
+          <!-- Indicators -->
+          <ol class="carousel-indicators">
+            <li data-target="#carouselBasicExample" data-slide-to="0" class="active"></li>
+            <% if(todos.length > 1) { %>
+              <% todos.forEach((_, index) => { %>
+                <li data-target="#carouselBasicExample" data-slide-to="<%= index + 1 %>"></li>
+              <% }) %>
+            <% } %>
+          </ol>
+        
+          <!-- Inner -->
+          <div class="carousel-inner">
+            <% if (todos.length < 1) { %>
+              <div class="carousel-item active">
+                <img
+                  src="https://source.unsplash.com/category/nature/1920x300"
+                  class=""
+                  alt="..."
+                  style="background-position: center; object-fit: cover; filter:blur(20px);"
+                />
+                <div class="carousel-caption text-white">
+                  <h5>아직 목표가 등록되어 있지 않습니다.</h5>
+                  
+                  <p><a href="/todo" class="card-link">여기를 눌러 </a>목표를 등록하세요</p>
+                </div>
+              </div>
+            <% } else { %>
+              <div class="carousel-item active">
+                <img
+                  src="https://source.unsplash.com/category/nature/1920x300"
+                  class=""
+                  alt="..."
+                  style="background-position: center; object-fit: cover; filter:blur(20px);"
+                />
+                <div class="carousel-caption text-white">
+                  <h5>경북 소프트웨어 교육 창의융합 해커톤 대회</h5>
+                  
+                  <p><a href="/todo" class="card-link">여기를 눌러 </a>목표를 등록하세요</p>
+                </div>
+              </div>
+              <% todos.forEach((item, index) => { %>
+                <div class="carousel-item">
+                  <img
+                    src="https://source.unsplash.com/category/nature/1920x300"
+                    class=""
+                    alt="..."
+                    style="background-position: center; object-fit: cover; filter:blur(20px);"
+                  />
+                  <div class="carousel-caption text-white">
+                    <h1><%= item.name %></h1>
+                    <h3><%= item.description %></h3><br/>
+                    <a class="btn btn-success" href="/api/todo?type=done&id=<%= item.todoid %>" role="button">완료</a>
+                    <a class="btn btn-danger" href="/api/todo?type=remove&id=<%= item.todoid %>" role="button">취소</a>
+                  </div>
+                </div>
+              <% }) %>
+            <% } %>
+          </div>
+          <!-- Inner -->
+        
+          <!-- Controls -->
+          <a
+            class="carousel-control-prev"
+            href="#carouselBasicExample"
+            role="button"
+            data-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden"></span>
+          </a>
+          <a
+            class="carousel-control-next"
+            href="#carouselBasicExample"
+            role="button"
+            data-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden"></span>
+          </a>
+        </div>
+      </div>
+      <div class="row mb-4">
+        <div class="col-md">
+          <div class="card bg-info text-center">
+            <div class="card-body">
+              <h4 class="card-title">크루</h4>
+              <p class="card-text">1:N 매치</p>
+              <a class="btn btn-primary" href="/matchcrew" role="button">매치 시작하기</a>
+              <hr>
+              <i class="fa fa-users" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+        <div class="col-md">
+          <div class="card bg-info text-center">
+            <div class="card-body">
+              <h4 class="card-title">메이트</h4>
+              <p class="card-text">1:1 매치 (25p 사용)</p>
+              <a class="btn btn-primary" href="/match" role="button">매치 시작하기</a>
+              <hr>
+              <i class="fa fa-people-arrows" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-4">
+        <div class="col-md">
+          <div class="card bg-info text-center">
+            <div class="card-body">
+              <h4 class="card-title">포인트</h4>
+              <p class="card-text"><%= point %>P</p>  
+              <hr>
+              <i class="fa fa-coins" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-4">
+        <div class="col-md">
+          <a class="btn btn-danger btn-lg btn-block" href="/" role="button"><i class="fa fa-home" aria-hidden="true"></i> 홈</a>
+        </div>
+        <div class="col-md">
+          <a class="btn btn-danger btn-lg btn-block" href="/list" role="button"><i class="fa fa-chart-pie" aria-hidden="true"></i> 순위</a>
+        </div>
+        <div class="col-md">
+          <a class="btn btn-danger btn-lg btn-block" href="/todo" role="button"><i class="fa fa-calculator" aria-hidden="true"></i> 목표 관리, 조회</a>
+        </div>
+        <div class="col-md">
+          <a class="btn btn-danger btn-lg btn-block" href="/crew" role="button"><i class="fa fa-users"-calc aria-hidden="true"></i> 크루</a>
+        </div>
+        <div class="col-md">
+          <a class="btn btn-danger btn-lg btn-block" onclick="document.cookie = 'session='; window.location.reload()" role="button"><i class="fa fa-sign-out-alt"-calc aria-hidden="true"></i> 로그아웃</a>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/1.0.0/mdb.min.js"></script>
+<!-- 
+    <script src="/socket.io/socket.io.min.js"></script>
+    <script>
+      const socket = io()
+      socket.on('info', function (data) {
+
+      })
+    </script> -->
+  </body>
+  <style>
+   #inneritems {
+     background-color: #99aab5;
+    min-height: 300px;
+   }
+   /* div.inneritem {
+    width: 200px; 
+    height: 200px;;
+    margin: 0 auto;
+   } */
+   </style>
+</html>
